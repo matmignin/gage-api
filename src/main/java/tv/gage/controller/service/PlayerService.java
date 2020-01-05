@@ -57,7 +57,7 @@ public class PlayerService {
 					.build();
 			game.addPlayer(player);
 			return Response.builder()
-					.result(game)
+					.result(player)
 					.build();
 		}
 		catch (PlayerRosterFullException e) {
