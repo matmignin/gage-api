@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import tv.gage.common.exception.UnknownGameException;
 import tv.gage.common.game.CodeGenerator;
 import tv.gage.common.game.Game;
-import tv.gage.common.socket.SocketService;
+import tv.gage.common.messaging.BroadcastService;
 import tv.gage.hub.Hub;
 
 @Service
@@ -52,7 +52,8 @@ public class HubService {
 		if (clazz == null) {
 			throw new UnknownGameException("Unknown Game");
 		}
-		return (Game) clazz.getDeclaredConstructor(SocketService.class, String.class).newInstance(messagingService, gameCode);
+		
+		return (Game) clazz.getDeclaredConstructor(BroadcastService.class, String.class).newInstance(messagingService, gameCode);
 	}
 
 }
