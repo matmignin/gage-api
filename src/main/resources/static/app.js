@@ -9,7 +9,7 @@ function setConnected(connected) {
     else {
         $("#conversation").hide();
     }
-    $("#greetings").html("");
+    $("#commands").html("");
 }
 
 function connect() {
@@ -39,7 +39,7 @@ function sendName() {
 }
 
 function showGreeting(message) {
-    $("#greetings").append("<tr><td>" + message + "</td></tr>");
+    $("#commands").append("<tr><td>" + message + "</td></tr>");
 }
 
 $(function () {
