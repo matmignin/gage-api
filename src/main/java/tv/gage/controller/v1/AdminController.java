@@ -24,7 +24,7 @@ import tv.gage.controller.service.HubService;
 import tv.gage.controller.service.MessagingService;
 import tv.gage.controller.service.PlayerService;
 import tv.gage.simon.engine.GameCommand;
-import tv.gage.simon.engine.GameCommand.CommandType;
+import tv.gage.simon.engine.GameCommand.GameCommandType;
 
 @RestController
 @Api(tags="Admin")
@@ -79,7 +79,7 @@ public class AdminController {
 	@PostMapping(value="/game/start")
 	public void startGame(
 			@RequestParam(value = "gameCode", required = true) String gameCode) throws JsonProcessingException {
-		GameCommand command = new GameCommand(CommandType.START);
+		GameCommand command = new GameCommand(GameCommandType.START);
 		String jsonCommand = JsonUtils.ObjectToJson(command);
 		gameService.sendGameCommand(gameCode, jsonCommand);
 	}
@@ -89,7 +89,7 @@ public class AdminController {
 	@PostMapping(value="/game/outOfTime")
 	public void outOfTime(
 			@RequestParam(value = "gameCode", required = true) String gameCode) throws JsonProcessingException {
-		GameCommand command = new GameCommand(CommandType.OUT_OF_TIME);
+		GameCommand command = new GameCommand(GameCommandType.OUT_OF_TIME);
 		String jsonCommand = JsonUtils.ObjectToJson(command);
 		gameService.sendGameCommand(gameCode, jsonCommand);
 	}
