@@ -35,7 +35,7 @@ function disconnect() {
 
 function sendName() {
     stompClient.send("/app/command/game/SIMN/player/GAGE", 
-    		{}, JSON.stringify({'type': 'MOVE', 'data': $("#name").val()}));
+    		{}, JSON.stringify({'type': 'MOVE'}));
 }
 
 function showGreeting(message) {

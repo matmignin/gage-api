@@ -19,14 +19,12 @@ public class MessagingService implements SocketService {
 	public void sendGameMessage(Message message) {
 		String destination = String.format(gameUrl, message.getGameCode());
 		template.convertAndSend(destination, message.getPayload());
-		System.out.println(String.format("Destination: %s, Payload: %s", destination, message.getPayload()));
 	}
 	
 	public void sendPlayerMessage(Message message) {
 		message.getPlayers().forEach(player -> {
 			String destination = String.format(playerUrl, player.getGameCode(), player.getPlayerCode());
 			template.convertAndSend(destination, message.getPayload());
-			System.out.println(String.format("Destination: %s, Payload: %s", destination, message.getPayload()));
 		});
 	}
 	

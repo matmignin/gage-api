@@ -79,7 +79,17 @@ public class AdminController {
 	@PostMapping(value="/game/start")
 	public void startGame(
 			@RequestParam(value = "gameCode", required = true) String gameCode) throws JsonProcessingException {
-		GameCommand command = new GameCommand(CommandType.START, "");
+		GameCommand command = new GameCommand(CommandType.START);
+		String jsonCommand = JsonUtils.ObjectToJson(command);
+		gameService.sendGameCommand(gameCode, jsonCommand);
+	}
+	
+	@CrossOrigin
+	@ApiOperation(value="Out of Time")
+	@PostMapping(value="/game/outOfTime")
+	public void outOfTime(
+			@RequestParam(value = "gameCode", required = true) String gameCode) throws JsonProcessingException {
+		GameCommand command = new GameCommand(CommandType.OUT_OF_TIME);
 		String jsonCommand = JsonUtils.ObjectToJson(command);
 		gameService.sendGameCommand(gameCode, jsonCommand);
 	}
