@@ -3,33 +3,25 @@ var stompClientUrl = null;
 
 function setConnected(connected) {
     $("#connect").prop("disabled", connected);
-    $("#send").prop("disabled", !connected);
+    $("#start").prop("disabled", !connected);
     $("#clear").prop("disabled", !connected);
-    if (connected) {
-        $("#conversation").show();
-    }
-    else {
-        $("#conversation").hide();
-    }
-    $("#commands").html("");
 }
 
 function connect() {
-	var gameCode = $('#gameId').val()
 	var args = {
-		gameCode: gameCode,
-		name: $('#playerName').val()
+		gameName: $('#gameName').val()
 	};
-	$.post('/api/v1/player/add', args, function(data) {
+	$.post('/api/v1/game/add', args, function(data) {
 		var errorMessage = data.error;
 		if (errorMessage !== null) {
 			showCommand(errorMessage);
 			return;
 		}
-		var playerCode = data.result.playerCode;
-		var subscribeUrl = '/topic/game/' + gameCode + '/player/' + playerCode;
-		stompClientUrl = '/app/command/game/' + gameCode + '/player/' + playerCode;
+		var gameCode = data.result.gameCode;
+		var subscribeUrl = '/topic/game/' + gameCode;
+		stompClientUrl = '/app/command/game/' + gameCode;
 		openSocket(subscribeUrl);
+		showCommand(gameCode);
 	});
 }	
 
@@ -54,9 +46,9 @@ function disconnect() {
     console.log("Disconnected");
 }
 
-function sendName() {
+function startGame() {
     stompClient.send(stompClientUrl, 
-    		{}, JSON.stringify({'type': 'MOVE'}));
+    		{}, JSON.stringify({'type': 'START'}));
 }
 
 function showCommand(message) {
@@ -72,6 +64,6 @@ $(function () {
         e.preventDefault();
     });
     $("#connect").click(function() { connect(); });
-    $("#send").click(function() { sendName(); });
+    $("#start").click(function() { startGame(); });
     $("#clear").click(function() { clearCommands(); });
 });

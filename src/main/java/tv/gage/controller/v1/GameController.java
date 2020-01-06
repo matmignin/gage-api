@@ -44,12 +44,4 @@ public class GameController {
 		return gameService.removeGame(gameCode);
 	}
 	
-	@CrossOrigin
-	@ApiOperation(value="Is Game Ready")
-	@PostMapping(value="/isReadyToPlay")
-	public Response isReadyToPlay(
-			@RequestParam(value = "gameCode", required = true) String gameCode) {
-		return gameService.isReadyToPlay(gameCode);
-	}
-
 }

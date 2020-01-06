@@ -73,20 +73,6 @@ public class GameService {
 		}
 	}
 	
-	public Response isReadyToPlay(String gameCode) {
-		try {
-			Game game = hubService.findGameByCode(gameCode);
-			return Response.builder()
-					.result(game.isReadyToPlay())
-					.build();
-		} 
-		catch (UnknownGameException e) {
-			return Response.builder()
-					.error(e.getMessage())
-					.build();
-		}
-	}
-	
 	public Response sendGameCommand(String gameCode, String jsonCommand) {
 		try {
 			Game game = hubService.findGameByCode(gameCode);
