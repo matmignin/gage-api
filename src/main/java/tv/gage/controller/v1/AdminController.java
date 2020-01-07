@@ -16,12 +16,9 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import tv.gage.common.Response;
 import tv.gage.common.game.Game;
-import tv.gage.common.game.Player;
-import tv.gage.common.messaging.Message;
 import tv.gage.common.util.JsonUtils;
 import tv.gage.controller.service.GameService;
 import tv.gage.controller.service.HubService;
-import tv.gage.controller.service.MessagingService;
 import tv.gage.controller.service.PlayerService;
 import tv.gage.simon.engine.GameCommand;
 import tv.gage.simon.engine.GameCommand.GameCommandType;
@@ -39,9 +36,6 @@ public class AdminController {
 	
 	@Autowired
 	private PlayerService playerService;
-	
-	@Autowired
-	private MessagingService messagingService;
 	
 	@CrossOrigin
 	@ApiOperation(value="List Active Games")
@@ -92,21 +86,6 @@ public class AdminController {
 		GameCommand command = new GameCommand(GameCommandType.OUT_OF_TIME);
 		String jsonCommand = JsonUtils.ObjectToJson(command);
 		gameService.sendGameCommand(gameCode, jsonCommand);
-	}
-	
-	@CrossOrigin
-	@ApiOperation(value="Send Message to Player")
-	@PostMapping(value="/player/message")
-	public void sendMessageToPlayer(
-			@RequestParam(value = "gameCode", required = true) String gameCode,
-			@RequestParam(value = "playerCode", required = true) String playerCode,
-			@RequestParam(value = "payload", required = true) String payload) {
-		Player player = Player.builder().playerCode(playerCode).gameCode(gameCode).build();
-		Message message = Message.builder()
-				.player(player)
-				.payload(payload)
-				.build();
-		messagingService.sendPlayerMessage(message);
 	}
 	
 }

@@ -23,19 +23,19 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
-                .httpBasic()
-                .and()
-                .authorizeRequests()
-                .antMatchers(HttpMethod.GET, "/v1/**").hasRole(USER)
-                .antMatchers(HttpMethod.POST, "/v1/**").hasRole(USER)
-                .antMatchers(
-                        "/", "/csrf", 
-                        "/v2/api-docs", 
-                        "/swagger-resources/**",
-                        "/swagger-ui.html",
-                        "/webjars/**"
-                        ).hasRole(USER)
-                .and()
+//                .httpBasic()
+//                .and()
+//                .authorizeRequests()
+//                .antMatchers(HttpMethod.GET, "/v1/**").hasRole(USER)
+//                .antMatchers(HttpMethod.POST, "/v1/**").hasRole(USER)
+//                .antMatchers(
+//                        "/", "/csrf", 
+//                        "/v2/api-docs", 
+//                        "/webjars/**",
+//                        "/swagger-resources/**",
+//                        "/swagger-ui.html"
+//                        ).hasRole(USER)
+//                .and()
                 .csrf().disable()
                 .formLogin().disable();
     }

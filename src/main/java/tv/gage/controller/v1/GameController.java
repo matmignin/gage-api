@@ -2,7 +2,6 @@ package tv.gage.controller.v1;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,13 +19,6 @@ public class GameController {
 	
 	@Autowired
 	private GameService gameService;
-	
-	@CrossOrigin
-	@ApiOperation(value="List Available Games")
-	@GetMapping(value="/list")
-	public Response availableGames() {
-		return gameService.availableGames();
-	}
 	
 	@CrossOrigin
 	@ApiOperation(value="Add Game")

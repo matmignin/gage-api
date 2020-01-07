@@ -1,7 +1,6 @@
 package tv.gage.controller.service;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,9 +9,7 @@ import tv.gage.common.Response;
 import tv.gage.common.exception.UnknownGameException;
 import tv.gage.common.exception.UnknownPlayerException;
 import tv.gage.common.game.Game;
-import tv.gage.common.game.GameInfo;
 import tv.gage.common.game.Player;
-import tv.gage.simon.Simon;
 
 @Service
 public class GameService {
@@ -22,14 +19,6 @@ public class GameService {
 	
 	@Autowired
 	private PlayerService playerService;
-	
-	public Response availableGames() {
-		return Response.builder()
-				.result(Arrays.asList(new GameInfo[] {
-						new Simon(null, null).gameInfo()
-				}))
-				.build();
-	}
 	
 	public Response addGame(String gameName) {
 		try {
