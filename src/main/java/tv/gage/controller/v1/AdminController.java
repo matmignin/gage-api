@@ -20,8 +20,8 @@ import tv.gage.common.util.JsonUtils;
 import tv.gage.controller.service.GameService;
 import tv.gage.controller.service.HubService;
 import tv.gage.controller.service.PlayerService;
-import tv.gage.simon.engine.GameCommand;
-import tv.gage.simon.engine.GameCommand.GameCommandType;
+import tv.gage.simon.command.GameCommand;
+import tv.gage.simon.command.GameCommand.GameCommandType;
 
 @RestController
 @Api(tags="Admin")
@@ -39,7 +39,7 @@ public class AdminController {
 	
 	@CrossOrigin
 	@ApiOperation(value="List Active Games")
-	@GetMapping(value="/list")
+	@GetMapping(value="/game/list")
 	public Response activeGames() {
 		List<Game> games = hubService.activeGames();
 		return Response.builder()
@@ -50,7 +50,7 @@ public class AdminController {
 	
 	@CrossOrigin
 	@ApiOperation(value="Add Game")
-	@PostMapping(value="/add/game")
+	@PostMapping(value="/game/add")
 	public Response addGame(
 			@RequestParam(value = "gameName", required = true) String gameName,
 			@RequestParam(value = "gameCode", required = true) String gameCode) {
@@ -60,7 +60,7 @@ public class AdminController {
 	
 	@CrossOrigin
 	@ApiOperation(value="Add Player")
-	@PostMapping(value="/add/player")
+	@PostMapping(value="/player/add")
 	public Response addPlayer(
 			@RequestParam(value = "gameCode", required = true) String gameCode,
 			@RequestParam(value = "name", required = true) String name,
