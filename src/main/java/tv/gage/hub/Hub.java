@@ -11,6 +11,7 @@ import tv.gage.simon.Simon;
 public class Hub {
 
 	private List<Class<?>> registeredGames = Arrays.asList(
+			DefaultGame.class,
 			Simon.class
 	);
 	
@@ -38,6 +39,10 @@ public class Hub {
 	
 	public void removeGame(Game game) {
 		games.remove(game);
+	}
+	
+	public void removeAllGames() {
+		games.clear();
 	}
 	
 	public Game findGameByCode(String gameCode) throws UnknownGameException {

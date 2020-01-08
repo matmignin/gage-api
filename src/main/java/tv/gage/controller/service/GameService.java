@@ -62,12 +62,12 @@ public class GameService {
 		}
 	}
 	
-	public Response sendGameCommand(String gameCode, String jsonCommand) {
+	public Response sendGameCommand(String gameCode, String json) {
 		try {
 			Game game = hubService.findGameByCode(gameCode);
-			game.receiveGameCommand(jsonCommand);
+			game.receiveGameCommand(json);
 			return Response.builder()
-					.result("Received")
+					.result("received")
 					.build();
 		}
 		catch (UnknownGameException e) {
@@ -77,13 +77,13 @@ public class GameService {
 		}
 	}
 	
-	public Response sendPlayerCommand(String gameCode, String playerCode, String jsonCommand) {
+	public Response sendPlayerCommand(String gameCode, String playerCode, String json) {
 		try {
 			Game game = hubService.findGameByCode(gameCode);
 			Player player = playerService.findPlayerByCode(game, playerCode);
-			game.receivePlayerCommand(player, jsonCommand);
+			game.receivePlayerCommand(player, json);
 			return Response.builder()
-					.result("Received")
+					.result("received")
 					.build();
 		}
 		catch (UnknownGameException | UnknownPlayerException e) {

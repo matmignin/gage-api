@@ -35,6 +35,10 @@ public class HubService {
 		Game game = findGameByCode(gameCode);
 		hub.removeGame(game);
 	}
+	
+	public void removeAllGames() {
+		hub.removeAllGames();
+	}
 
 	public List<Game> activeGames() {
 		return hub.getGames();
