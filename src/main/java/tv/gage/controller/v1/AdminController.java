@@ -10,18 +10,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import tv.gage.common.Response;
 import tv.gage.common.game.Game;
-import tv.gage.common.util.JsonUtils;
 import tv.gage.controller.service.GameService;
 import tv.gage.controller.service.HubService;
 import tv.gage.controller.service.PlayerService;
-import tv.gage.simon.command.GameCommand;
-import tv.gage.simon.command.GameCommand.GameCommandType;
 
 @RestController
 @Api(tags="Admin")
@@ -66,26 +61,6 @@ public class AdminController {
 			@RequestParam(value = "name", required = true) String name,
 			@RequestParam(value = "playerCode", required = true) String playerCode) {
 		return playerService.addPlayer(gameCode, name, playerCode);
-	}
-	
-	@CrossOrigin
-	@ApiOperation(value="Start Game")
-	@PostMapping(value="/game/start")
-	public void startGame(
-			@RequestParam(value = "gameCode", required = true) String gameCode) throws JsonProcessingException {
-		GameCommand command = new GameCommand(GameCommandType.START);
-		String jsonCommand = JsonUtils.ObjectToJson(command);
-		gameService.sendGameCommand(gameCode, jsonCommand);
-	}
-	
-	@CrossOrigin
-	@ApiOperation(value="Out of Time")
-	@PostMapping(value="/game/outOfTime")
-	public void outOfTime(
-			@RequestParam(value = "gameCode", required = true) String gameCode) throws JsonProcessingException {
-		GameCommand command = new GameCommand(GameCommandType.OUT_OF_TIME);
-		String jsonCommand = JsonUtils.ObjectToJson(command);
-		gameService.sendGameCommand(gameCode, jsonCommand);
 	}
 	
 }

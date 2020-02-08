@@ -2,6 +2,8 @@ package tv.gage.controller.v1;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -34,6 +36,14 @@ public class GameController {
 	public Response removeGame(
 			@RequestParam(value = "gameCode", required = true) String gameCode) {
 		return gameService.removeGame(gameCode);
+	}
+	
+	@CrossOrigin
+	@ApiOperation(value="Find Game from Code")
+	@GetMapping(value="/find/{gameCode}")
+	public Response findGameByCode(
+			@PathVariable String gameCode) {
+		return gameService.findGameByCode(gameCode);
 	}
 	
 }

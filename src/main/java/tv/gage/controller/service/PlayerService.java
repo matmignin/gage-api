@@ -52,6 +52,7 @@ public class PlayerService {
 				.name(name)
 				.playerCode(playerCode)
 				.gameCode(game.getGameCode())
+				.gameName(game.getClass().getSimpleName())
 				.build();
 		game.addPlayer(player);
 		return Response.builder()

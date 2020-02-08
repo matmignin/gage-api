@@ -7,7 +7,7 @@
     <script src="/webjars/jquery/jquery.min.js"></script>
     <script src="/webjars/sockjs-client/sockjs.min.js"></script>
     <script src="/webjars/stomp-websocket/stomp.min.js"></script>
-    <script src="/play.js"></script>
+    <script src="/game.js"></script>
 </head>
 <body>
 <noscript><h2 style="color: #ff0000">Seems your browser doesn't support Javascript! Websocket relies on Javascript being
@@ -15,6 +15,13 @@
     Javascript and reload this page!</h2></noscript>
 <div id="main-content" class="container">
     <div class="row">
+         <div class="col-md-6">
+            <form class="form-inline">
+                <div class="form-group">
+                    <label>Game</label>
+                </div>
+            </form>
+        </div>
        <div class="col-md-6">
             <form class="form-inline">
                 <div class="form-group">
@@ -22,8 +29,6 @@
                     <input type="text" id="gameName" class="form-control" placeholder="Game name...">
                     <button id="connect" class="btn btn-default" type="submit">Connect</button>
                 </div>
-                <button id="start" class="btn btn-default" type="submit" disabled="disabled">Start</button>
-                <button id="clear" class="btn btn-default" type="submit" disabled="disabled">Clear</button>
             </form>
         </div>
     </div>
