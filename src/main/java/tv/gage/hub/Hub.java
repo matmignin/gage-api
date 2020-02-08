@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import tv.gage.cardsAgainstHumanity.Humanity;
 import tv.gage.common.exception.UnknownGameException;
 import tv.gage.common.game.Game;
 import tv.gage.simon.Simon;
@@ -11,7 +12,9 @@ import tv.gage.simon.Simon;
 public class Hub {
 
 	private List<Class<?>> registeredGames = Arrays.asList(
-			Simon.class
+			DefaultGame.class,
+			Simon.class,
+			Humanity.class
 	);
 	
 	private static Hub hub = null;
@@ -40,13 +43,17 @@ public class Hub {
 		games.remove(game);
 	}
 	
+	public void removeAllGames() {
+		games.clear();
+	}
+	
 	public Game findGameByCode(String gameCode) throws UnknownGameException {
 		Game existingGame = games.stream()
 				.filter(game -> game.getGameCode().equals(gameCode))
 				.findFirst()
 				.orElse(null);
 		if (existingGame == null) {
-			throw new UnknownGameException(String.format("Unknown Game with Code %s", gameCode));
+			throw new UnknownGameException(String.format("Unknown Game Code %s", gameCode));
 		}
 		return existingGame;
 	}

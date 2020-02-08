@@ -1,7 +1,6 @@
 package tv.gage.controller.service;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,9 +9,7 @@ import tv.gage.common.Response;
 import tv.gage.common.exception.UnknownGameException;
 import tv.gage.common.exception.UnknownPlayerException;
 import tv.gage.common.game.Game;
-import tv.gage.common.game.GameInfo;
 import tv.gage.common.game.Player;
-import tv.gage.simon.Simon;
 
 @Service
 public class GameService {
@@ -22,14 +19,6 @@ public class GameService {
 	
 	@Autowired
 	private PlayerService playerService;
-	
-	public Response availableGames() {
-		return Response.builder()
-				.result(Arrays.asList(new GameInfo[] {
-						new Simon(null, null).gameInfo()
-				}))
-				.build();
-	}
 	
 	public Response addGame(String gameName) {
 		try {
@@ -73,26 +62,11 @@ public class GameService {
 		}
 	}
 	
-	public Response isReadyToPlay(String gameCode) {
+	public Response findGameByCode(String gameCode) {
 		try {
 			Game game = hubService.findGameByCode(gameCode);
 			return Response.builder()
-					.result(game.isReadyToPlay())
-					.build();
-		} 
-		catch (UnknownGameException e) {
-			return Response.builder()
-					.error(e.getMessage())
-					.build();
-		}
-	}
-	
-	public Response sendGameCommand(String gameCode, String jsonCommand) {
-		try {
-			Game game = hubService.findGameByCode(gameCode);
-			game.receiveGameCommand(jsonCommand);
-			return Response.builder()
-					.result("Received")
+					.result(game.getClass().getSimpleName())
 					.build();
 		}
 		catch (UnknownGameException e) {
@@ -102,13 +76,28 @@ public class GameService {
 		}
 	}
 	
-	public Response sendPlayerCommand(String gameCode, String playerCode, String jsonCommand) {
+	public Response sendGameCommand(String gameCode, String json) {
+		try {
+			Game game = hubService.findGameByCode(gameCode);
+			game.receiveGameCommand(json);
+			return Response.builder()
+					.result("received")
+					.build();
+		}
+		catch (UnknownGameException e) {
+			return Response.builder()
+					.error(e.getMessage())
+					.build();
+		}
+	}
+	
+	public Response sendPlayerCommand(String gameCode, String playerCode, String json) {
 		try {
 			Game game = hubService.findGameByCode(gameCode);
 			Player player = playerService.findPlayerByCode(game, playerCode);
-			game.receivePlayerCommand(player, jsonCommand);
+			game.receivePlayerCommand(player, json);
 			return Response.builder()
-					.result("Received")
+					.result("received")
 					.build();
 		}
 		catch (UnknownGameException | UnknownPlayerException e) {

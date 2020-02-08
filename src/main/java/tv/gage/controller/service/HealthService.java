@@ -9,7 +9,7 @@ public class HealthService {
 
 	public Response status() {
 		return Response.builder()
-				.result("Running")
+				.result("running")
 				.build();
 	}
 	

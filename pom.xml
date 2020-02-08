@@ -58,6 +58,11 @@
 			<artifactId>gage-simon</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
+		<dependency>
+			<groupId>tv.gage</groupId>
+			<artifactId>gage-cards-against-humanity</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 
         <dependency>
             <groupId>org.webjars</groupId>

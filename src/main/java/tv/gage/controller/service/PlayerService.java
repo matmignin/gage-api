@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import tv.gage.common.Response;
 import tv.gage.common.exception.PlayerNotUniqueException;
-import tv.gage.common.exception.PlayerRosterFullException;
 import tv.gage.common.exception.UnknownGameException;
 import tv.gage.common.exception.UnknownPlayerException;
 import tv.gage.common.game.CodeGenerator;
@@ -49,22 +48,16 @@ public class PlayerService {
 	}
 	
 	private Response addPlayer(Game game, String name, String playerCode) {
-		try {
-			Player player = Player.builder()
-					.name(name)
-					.playerCode(playerCode)
-					.gameCode(game.getGameCode())
-					.build();
-			game.addPlayer(player);
-			return Response.builder()
-					.result(game)
-					.build();
-		}
-		catch (PlayerRosterFullException e) {
-			return Response.builder()
-					.error(e.getMessage())
-					.build();
-		}
+		Player player = Player.builder()
+				.name(name)
+				.playerCode(playerCode)
+				.gameCode(game.getGameCode())
+				.gameName(game.getClass().getSimpleName())
+				.build();
+		game.addPlayer(player);
+		return Response.builder()
+				.result(player)
+				.build();
 	}
 	
 	public Response removePlayer(String gameCode, String playerCode) {
